@@ -45,6 +45,8 @@ while True:
                 h,w,c = img.shape
                 cx, cy = int(lm.x*w), int(lm.y*h)
                 print(id, cx, cy)
+                if id==0:
+                    cv2.circle(img, (cx, cy), 25, (255,0,255), cv2.FILLED)
             mp_draw.draw_landmarks(img, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
     cTime = time.time()
