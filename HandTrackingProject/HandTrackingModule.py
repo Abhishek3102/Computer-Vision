@@ -18,6 +18,28 @@ class handDetector():
         self.hands = self.mp_hands.Hands(self.mode, self.maxHands, self.detectionCon, self.trackCon)
         self.mp_draw = mp.solutions.drawing_utils
 
+    def findHands(self, img,draw=True):
+        # Convert the image color space from BGR to RGB
+        img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    
+    # Process the image and find hands
+        results = self.hands.process(img_rgb)
+    
+    # Draw hand landmarks
+        if results.multi_hand_landmarks:
+            for hand_landmarks in results.multi_hand_landmarks:
+             if draw:
+                 self.mp_draw.draw_landmarks(img, hand_landmarks, self.mp_hands.HAND_CONNECTIONS)
+        return img
+
+
+            #  for id, lm in enumerate(hand_landmarks.landmark):
+            #     # print(id,lm)
+            #         h,w,c = img.shape
+            #         cx, cy = int(lm.x*w), int(lm.y*h)
+            #         print(id, cx, cy)
+            #         if id==0:
+            #             cv2.circle(img, (cx, cy), 25, (255,0,255), cv2.FILLED)
 
 
 
@@ -42,24 +64,7 @@ while True:
         print("Error: Failed to capture image.")
         break
 
-    # Convert the image color space from BGR to RGB
-    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     
-    # Process the image and find hands
-    results = hands.process(img_rgb)
-    
-    # Draw hand landmarks
-    if results.multi_hand_landmarks:
-        for hand_landmarks in results.multi_hand_landmarks:
-            for id, lm in enumerate(hand_landmarks.landmark):
-                # print(id,lm)
-                h,w,c = img.shape
-                cx, cy = int(lm.x*w), int(lm.y*h)
-                print(id, cx, cy)
-                if id==0:
-                    cv2.circle(img, (cx, cy), 25, (255,0,255), cv2.FILLED)
-            mp_draw.draw_landmarks(img, hand_landmarks, mp_hands.HAND_CONNECTIONS)
-
     
 
     
@@ -70,9 +75,12 @@ cv2.destroyAllWindows()
 def main():
     pTime = 0
     cTime = 0
+    cap = cv2.VideoCapture(0)
+    detector = handDetector()
 
     while True:
         success, img = cap.read()
+        img = detector.findHands(img)
 
         cTime = time.time()
         fps = 1/(cTime-pTime)
