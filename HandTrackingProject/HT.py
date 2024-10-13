@@ -2,6 +2,7 @@ import os
 import cv2
 import mediapipe as mp
 import time
+import HandTrackingModule as htm
 
 # Suppress TensorFlow warnings
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'

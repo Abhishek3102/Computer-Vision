@@ -4,7 +4,7 @@ import mediapipe as mp
 import time
 
 # Suppress TensorFlow warnings
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 
 class handDetector():
     def __init__(self,mode=False, maxHands=2, detectionCon=0.5, trackCon=0.5):
@@ -31,15 +31,24 @@ class handDetector():
              if draw:
                  self.mp_draw.draw_landmarks(img, hand_landmarks, self.mp_hands.HAND_CONNECTIONS)
         return img
+    
+    def findPosition(self, img, handNo=0, draw=True):
+        lnList = []
+        if self.results.multi_hand_landmarks:
+            myHand = self.results.multi_hand_landmarks[handNo]
 
 
-            #  for id, lm in enumerate(hand_landmarks.landmark):
-            #     # print(id,lm)
-            #         h,w,c = img.shape
-            #         cx, cy = int(lm.x*w), int(lm.y*h)
-            #         print(id, cx, cy)
-            #         if id==0:
-            #             cv2.circle(img, (cx, cy), 25, (255,0,255), cv2.FILLED)
+
+            for id, lm in enumerate(myHand.landmark):
+                # print(id,lm)
+                    h,w,c = img.shape
+                    cx, cy = int(lm.x*w), int(lm.y*h)
+                    # print(id, cx, cy)
+                    if draw:
+                        cv2.circle(img, (cx, cy), 25, (255,0,255), cv2.FILLED)
+
+
+        return lnList
 
 
 
