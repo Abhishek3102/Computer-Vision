@@ -94,8 +94,17 @@ def main():
         # Show the frame
         cv2.imshow("Image", img)
         
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        img_counter = 0
+        key = cv2.waitKey(10)
+        if key & 0xFF == ord('q'):
             break
+
+        # Press 's' to save the image
+        elif key & 0xFF == ord('s'):
+            img_name = f"pose_estimation_{img_counter}.png"
+            cv2.imwrite(img_name, img)
+            print(f"Image saved as {img_name}")
+            img_counter += 1
 
     cap.release()
     cv2.destroyAllWindows()
