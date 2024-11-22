@@ -3,12 +3,10 @@ import time
 import numpy as np
 import PoseModule as pm
 
-# Load YOLO model
 net = cv2.dnn.readNet('yolov3.weights', 'yolov3.cfg')
 layer_names = net.getLayerNames()
 output_layers = [layer_names[i - 1] for i in net.getUnconnectedOutLayers()]
 
-# Load COCO class labels
 with open('coco.names', 'r') as f:
     classes = [line.strip() for line in f.readlines()]
 
@@ -31,10 +29,10 @@ def detect_dumbbell_in_hand(img):
             scores = detection[5:]
             class_id = np.argmax(scores)
             confidence = scores[class_id]
-            if confidence > 0.5:  # Only consider detections with confidence > 50%
-                if classes[class_id] == 'sports ball' or classes[class_id] == 'person':  # dumbbell might be categorized under these classes
-                    return True  # Object (dumbbell or other relevant item) detected
-    return False  # No object detected
+            if confidence > 0.5:  
+                if classes[class_id] == 'sports ball' or classes[class_id] == 'person':  
+                    return True  
+    return False 
 
 while True:
     success, img = cap.read()
@@ -45,7 +43,7 @@ while True:
     img = detector.findPose(img, False)
     lmList = detector.findPosition(img, False)
 
-    dumbbell_in_hand = detect_dumbbell_in_hand(img)  # Detect if there is a dumbbell or similar object in the user's hand
+    dumbbell_in_hand = detect_dumbbell_in_hand(img)  
 
     if len(lmList) != 0:
         angle = detector.findAngle(img, 12, 14, 16)
@@ -53,12 +51,12 @@ while True:
         bar = np.interp(angle, (220, 310), (650, 100))
 
         color = (255, 0, 255)
-        if per == 100 and dumbbell_in_hand:  # Only count rep if the dumbbell is detected
+        if per == 100 and dumbbell_in_hand:  
             color = (0, 255, 0)
             if dir == 0:
                 count += 0.5
                 dir = 1
-        if per == 0 and dumbbell_in_hand:  # Only count rep if the dumbbell is detected
+        if per == 0 and dumbbell_in_hand:  
             color = (0, 255, 0)
             if dir == 1:
                 count += 0.5
