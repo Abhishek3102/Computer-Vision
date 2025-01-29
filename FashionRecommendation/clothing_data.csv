@@ -1,0 +1,21 @@
+age_range,gender,body_shape,clothing_item,size,color
+18-25,Male,Athletic,T-shirt,M,Blue
+26-35,Female,Hourglass,Dress,S,Red
+18-25,Female,Petite,Jeans,XS,Black
+36-45,Male,Muscular,Jacket,L,Green
+46-55,Female,Plus Size,Skirt,XL,Pink
+18-25,Male,Slim,Fitness Shorts,S,Gray
+26-35,Female,Apple,Blouse,M,White
+36-45,Female,Hourglass,Sweater,L,Beige
+18-25,Male,Athletic,Hoodie,M,Black
+26-35,Female,Petite,Leggings,S,Blue
+36-45,Male,Muscular,Shorts,L,Orange
+46-55,Female,Apple,Cardigan,XL,Brown
+18-25,Male,Slim,Jeans,S,Blue
+26-35,Female,Hourglass,Skirt,M,Black
+36-45,Female,Plus Size,T-shirt,XL,White
+18-25,Male,Athletic,Sweatpants,M,Gray
+26-35,Female,Petite,Jacket,S,Red
+46-55,Male,Muscular,V-neck Shirt,L,White
+18-25,Female,Hourglass,Jeans,S,Blue
+26-35,Female,Apple,Tank Top,M,Yellow
